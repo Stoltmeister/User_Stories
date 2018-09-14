@@ -33,6 +33,18 @@ function searchByTraits(people) {
     case "weight":
       filteredPeople = searchByWeight(people);
       break;
+    case "eye color":
+      filteredPeople = null;
+      break;
+    case "gender":
+      filteredPeople = null;
+      break;
+    case "age":
+      filteredPeople = null;
+      break;
+    case "occcupation":
+      filteredPeople = null;
+      break;
     // so on and so forth
     default:
       alert("You entered an invalid search type! Please try again.");
@@ -74,7 +86,7 @@ function mainMenu(person, people) {
   switch (displayOption) {
     case "info":
       // TODO: get person's info
-      
+
       break;
     case "family":
       // TODO: get person's family
@@ -112,8 +124,8 @@ function searchByName(people) {
   }
   else {
     alert("More than one person!");
-      app(people); // restart app
-      return;
+    app(people); // restart app
+    return;
   }
 }
 
@@ -138,6 +150,7 @@ function displayPerson(person) {
   personInfo += "Occupation: " + person.occupation + "\n";
   personInfo += "Parents: " + person.parents + "\n";
   personInfo += "Current Spouse: " + person.currentSpouse + "\n";
+
   alert(personInfo);
 }
 
@@ -157,4 +170,36 @@ function yesNo(input) {
 // helper function to pass in as default promptFor validation
 function chars(input) {
   return true; // default validation only
+}
+
+function searchByEyeColor(people) {
+  let userInputEyeColor = prompt("What is the person's eye color?");
+  
+  var result = people.filter(function (el) {
+    if (el.eyeColor === userInputEyeColor) {
+      return true;
+    }
+    else {
+      return false;
+    }
+  });
+
+  return result;
+
+}
+
+function searchByOccupation(people) {
+  let userInputOccupation = prompt("What is the person's occupation?");
+  
+  var result = people.filter(function (el) {
+    if (el.occupation === userInputOccupation) {
+      return true;
+    }
+    else {
+      return false;
+    }
+  });
+
+  return result;
+
 }
