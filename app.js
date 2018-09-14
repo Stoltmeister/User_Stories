@@ -9,7 +9,8 @@ function app(people) {
   switch (searchType) {
     case 'yes':
       // TO DO
-      searchByName(data);
+      let nameFound = searchByName(data);
+      mainMenu(nameFound, data);
       break;
     case 'no':
       searchByTraits(people);
@@ -104,7 +105,15 @@ function searchByName(people) {
     }
   });
 
-  console.log(result);
+  if (result.length === 1) {
+    let person = result[0];
+    return person;
+  }
+  else {
+    alert("More than one person!");
+      app(people); // restart app
+      return;
+  }
 }
 
 // alerts a list of people
