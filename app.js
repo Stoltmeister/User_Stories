@@ -23,8 +23,10 @@ function app(people) {
 }
 
 function searchByTraits(people) {
-  let userSearchChoice = prompt("What would you like to search by? 'height', 'weight', 'eye color', 'gender', 'age', 'occupation'.");
   let filteredPeople = [];
+  do {
+
+  let userSearchChoice = prompt("What would you like to search by? 'height', 'weight', 'eye color', 'gender', 'age', 'occupation'.");
   let searchInput;
 
   switch (userSearchChoice) {
@@ -59,6 +61,13 @@ function searchByTraits(people) {
       searchByTraits(people);
       break;
   }
+
+  if (filteredPeople.length > 1) {
+    alert("There is more than one person who fits this criteria. Please narrow further");
+    people = filteredPeople;
+  }
+
+} while(filteredPeople.length > 1);
 
   let foundPerson = filteredPeople[0];
 
@@ -156,7 +165,7 @@ function searchByHeight(people) {
     let userInputHeight = prompt("What is this person's height?");
 
     newArray = people.filter(function (el) {
-      if (el.height === userInputHeight) {
+      if (el.height.toString() === userInputHeight) {
         return true;
       }
     });
