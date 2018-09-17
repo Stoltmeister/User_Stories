@@ -179,6 +179,59 @@ function searchByHeight(people) {
   return newArray;
 }
 
+function searchByAge(people) {
+  let userInputAge = prompt("What is this person's age?");
+  let currentDay = getDate();
+  let currentMonth = getmonth();
+  let currentYear = getFullYear();
+
+  let age = today.getFullYear() - userInputAge.getFullYear();
+
+
+
+  let ageArray = people.map(function (el) {
+      let day;
+      let month = el.dob.;
+      let year;
+
+
+
+    if (month )
+    
+    
+    // return true if el.weight matches userInputHeight
+  });
+}
+
+function parseAge (dob) {
+    let day;
+    let month;
+    let year = dob.slice(dob.length - 4, dob.length);
+    let ageArray = [];
+    let i = 0;
+  
+      if (dob[i+1] === '/') {
+        month = dob[i];
+        i += 2;
+      }
+      else {
+        month = dob[i] + dob[i+1];
+        i += 3;
+      }
+      if (dob[i+1] == '/') {
+        day = dob[i];
+      }
+      else {
+        day = dob[i] + dob[i + 1];
+      }
+
+      ageArray[0] = month;
+      ageArray[1] = day;
+      ageArray[2] = year;
+
+      return ageArray;
+
+}
 // Menu function to call once you find who you are looking for
 function mainMenu(person, people) {
 
