@@ -24,28 +24,36 @@ function app(people) {
 
 function searchByTraits(people) {
   let userSearchChoice = prompt("What would you like to search by? 'height', 'weight', 'eye color', 'gender', 'age', 'occupation'.");
-  let filteredPeople;
+  let filteredPeople = [];
+  let searchInput;
 
   switch (userSearchChoice) {
     case "height":
       filteredPeople = searchByHeight(people);
+      console.log(filteredPeople);
       break;
     case "weight":
       filteredPeople = searchByWeight(people);
+      console.log(filteredPeople);
       break;
     case "eye color":
-      filteredPeople = null;
+      filteredPeople = searchByEyeColor(people);
+      console.log(filteredPeople);
       break;
     case "gender":
-      filteredPeople = null;
+      filteredPeople = searchByGender(people);
+      console.log(filteredPeople);
       break;
     case "age":
-      filteredPeople = null;
+      filteredPeople = searchByAge(people);
+      console.log(filteredPeople);
       break;
     case "occcupation":
-      filteredPeople = null;
+      searchInput = promptFor("What is their occupation?", chars);
+      filteredPeople = searchByOccupation(searchInput, people);
+      console.log(filteredPeople);
       break;
-    // so on and so forth
+
     default:
       alert("You entered an invalid search type! Please try again.");
       searchByTraits(people);
@@ -59,14 +67,105 @@ function searchByTraits(people) {
 }
 
 function searchByWeight(people) {
-  let userInputWeight = prompt("How much does the person weigh?");
+  let newArray = [];
+  do {
+    let userInputWeight = prompt("How much does the person weigh?");
 
-  let newArray = people.filter(function (el) {
-    if (el.weight == userInputWeight) {
-      return true;
+    newArray = people.filter(function (el) {
+      if (el.weight == userInputWeight) {
+        return true;
+      }
+    });
+
+    if (newArray.length < 1) {
+      alert("No results. Make sure your input is valid! Please try again.");
     }
-    // return true if el.weight matches userInputHeight
-  });
+
+  } while (newArray.length < 1);
+
+  return newArray;
+}
+
+
+function searchByEyeColor(people) {
+  let newArray = [];
+  do {
+
+    let userInputEyeColor = prompt("What is the person's eye color?");
+
+    newArray = people.filter(function (el) {
+      if (el.eyeColor === userInputEyeColor) {
+        return true;
+      }
+      else {
+        return false;
+      }
+    });
+
+    if (newArray.length < 1) {
+      alert("No results. Make sure your input is valid! Please try again.");
+    }
+
+  } while (newArray.length < 1);
+
+  return newArray;
+}
+
+function searchByOccupation(people) {
+  let newArray = [];
+  do {
+    let userInputOccupation = prompt("What is the person's occupation?");
+
+    newArray = people.filter(function (el) {
+      if (el.occupation === userInputOccupation) {
+        return true;
+      }
+    });
+
+    if (newArray.length < 1) {
+      alert("No results. Make sure your input is valid! Please try again.");
+    }
+
+  } while (newArray.length < 1);
+
+  return newArray;
+}
+
+function searchByGender(people) {
+  let newArray = [];
+  do {
+    let userInputGender = prompt("What is this person's gender?");
+
+    newArray = people.filter(function (el) {
+      if (el.gender === userInputGender) {
+        return true;
+      }
+    });
+
+    if (newArray.length < 1) {
+      alert("No results. Make sure your input is valid! Please try again.");
+    }
+
+  } while (newArray.length < 1);
+  return newArray;
+}
+
+function searchByHeight(people) {
+  let newArray = [];
+  do {
+    let userInputHeight = prompt("What is this person's height?");
+
+    newArray = people.filter(function (el) {
+      if (el.height === userInputHeight) {
+        return true;
+      }
+    });
+
+    if (newArray.length < 1) {
+      alert("No results. Make sure your input is valid! Please try again.");
+    }
+
+  } while (newArray.length < 1);
 
   return newArray;
 }
@@ -90,9 +189,12 @@ function mainMenu(person, people) {
       break;
     case "family":
       // TODO: get person's family
+      person.parents
+      person.currentSpouse
       break;
     case "descendants":
-      // TODO: get person's descendants
+      // TODO: get person's descendants *Use Recursion Function* 
+      // people who have this current person as a parent
       break;
     case "restart":
       app(people); // restart
@@ -112,9 +214,6 @@ function searchByName(people) {
   var result = people.filter(function (el) {
     if (el.firstName === firstName && el.lastName === lastName) {
       return true;
-    }
-    else {
-      return false;
     }
   });
 
@@ -172,34 +271,3 @@ function chars(input) {
   return true; // default validation only
 }
 
-function searchByEyeColor(people) {
-  let userInputEyeColor = prompt("What is the person's eye color?");
-  
-  var result = people.filter(function (el) {
-    if (el.eyeColor === userInputEyeColor) {
-      return true;
-    }
-    else {
-      return false;
-    }
-  });
-
-  return result;
-
-}
-
-function searchByOccupation(people) {
-  let userInputOccupation = prompt("What is the person's occupation?");
-  
-  var result = people.filter(function (el) {
-    if (el.occupation === userInputOccupation) {
-      return true;
-    }
-    else {
-      return false;
-    }
-  });
-
-  return result;
-
-}
