@@ -385,12 +385,13 @@ function mainMenu(person, people) {
 
 
       alert(personFamily);
-
+      mainMenu(person, people);
       break;
     case "descendants":
       // TODO: get person's descendants *Use Recursion Function* 
       // people who have this current person as a parent
       alert(getDescendants(person, people, 1));
+      mainMenu(person, people);
       break;
     case "restart":
       app(people); // restart
