@@ -71,26 +71,57 @@ function searchByTraits(people) {
         let gender = promptFor("Search by gender?", yesNo);
         let age = promptFor("Search by age?", yesNo);
         let occcupation = promptFor("Search by occcupation?", yesNo);
-
+        let counter = 0;
         if (height === "yes") {
           filteredPeople = searchByHeight(people);
+          counter++;
         }
         if (weight === "yes") {
-          filteredPeople = searchByWeight(filteredPeople);
+          if (counter > 1) {
+            filteredPeople = searchByWeight(filteredPeople);
+          }
+          else {
+            filteredPeople = searchByWeight(people);
+          }
+          counter++;
         }
         if (eyeColor === "yes") {
+          if (counter > 1) {
           filteredPeople = searchByEyeColor(filteredPeople);
+          }
+          else {
+            filteredPeople = searchByEyeColor(people);
+          }
+          counter++;
         }
         if (gender === "yes") {
+          if (counter > 1) {
           filteredPeople = searchByGender(filteredPeople);
+          }
+          else {
+            filteredPeople = searchByGender(people);
+          }
+          counter++;
         }
         if (age === "yes") {
+          if (counter > 1) {
           filteredPeople = searchByAge(filteredPeople);
+          }
+          else {
+            filteredPeople = searchByAge(people);
+          }
+          counter++;
         }
         if (occcupation === "yes") {
+          if (counter > 1) {
           filteredPeople = searchByOccupation(filteredPeople);
+          }
+          else {
+            filteredPeople = searchByOccupation(people);
+          }
+          counter++;
         }
-        else {
+        if (counter < 1) {
           alert("You did not select any trait to search for! Please try again.");
           searchByTraits(people);
           break;
