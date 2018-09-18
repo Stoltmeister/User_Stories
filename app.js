@@ -362,7 +362,24 @@ function mainMenu(person, people) {
         spouse = spouse[0].firstName;
       }
 
-      let parents = people.filter(function (el) {
+      var parents = people.filter(function (el) {
+        if (el.id === person.parents[0] || el.id === person.parents[1]) {
+          return true;
+        }
+      });
+      if (parents.length > 0) {
+        if (parents.length > 1) {
+          parents = parents[0].firstName + ", " + parents[1].firstName;
+        }
+        else {
+          parents = parents[0].firstName;
+        }
+      }
+      if (spouse.length > 0) {
+        spouse = spouse[0].firstName;
+      }
+
+      var parents = people.filter(function (el) {
         if (el.id === person.parents[0] || el.id === person.parents[1]) {
           return true;
         }
