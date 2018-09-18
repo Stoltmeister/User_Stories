@@ -517,7 +517,7 @@ function getDescendants(person, allPeople, counter, children = []) {
     });
 
     if (children.length < 1) {
-      return;
+      return '';
     }
 
     grandkids = allPeople.filter(function (el) {
@@ -528,7 +528,11 @@ function getDescendants(person, allPeople, counter, children = []) {
       }
     });
 
-    if (grandkids.length > 0) {
+    if (grandkids.length < 1) {
+      return '';
+    }
+
+    else {
       children = grandkids;
       grandkids = grandkids.map(function (el) {
         return ', ' + el.firstName + ' ' + el.lastName;
