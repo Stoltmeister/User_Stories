@@ -65,12 +65,12 @@ function searchByTraits(people) {
       case "multiple":
 
         alert("Answer 'yes' or 'no' for the following questions");
-        let height = promptFor("Search by height?", yesNo);
-        let weight = promptFor("Search by weight?", yesNo);
-        let eyeColor = promptFor("Search by eye color?", yesNo);
-        let gender = promptFor("Search by gender?", yesNo);
-        let age = promptFor("Search by age?", yesNo);
-        let occcupation = promptFor("Search by occcupation?", yesNo);
+        let height = promptFor("Search by height? ('yes' or 'no')", yesNo);
+        let weight = promptFor("Search by weight? ('yes' or 'no')", yesNo);
+        let eyeColor = promptFor("Search by eye color? ('yes' or 'no')", yesNo);
+        let gender = promptFor("Search by gender? ('yes' or 'no')", yesNo);
+        let age = promptFor("Search by age? ('yes' or 'no')", yesNo);
+        let occcupation = promptFor("Search by occcupation? ('yes' or 'no')", yesNo);
         let counter = 0;
         if (height === "yes") {
           filteredPeople = searchByHeight(people);
@@ -166,79 +166,7 @@ function searchByWeight(people) {
 
   return newArray;
 }
-
-function getRelatives(people) {
-
-
-  let userInputFirstName = prompt("Type the person's first name to get descendants.");
-  let userInputLastName = prompt("Type the person's last name to get descendants.");
-
-  let newArray = [];
-  // let personId = 0;
-  newArray = getPerson(people, userInputFirstName.toLowerCase(), userInputLastName.toLowerCase());
-
-
-  // let x = 0;
-
-
-  // return newArray;newArray = people.filter(function (el) 
-  // {
-  //     if (el.parents.length > 0)
-  //    {
-
-  //       for ( i = 0; i < el.parents.length ; ++i){
-
-  //         if (el.parents[i] == personId)
-  //         {
-  //          return true;
-  //         } 
-
-  //       }
-  //    }
-
-  //  });
-
-  newArray = getImmediateFamily(people, newArray);
-
-  return newArray;
-}
-
-function getImmediateFamily(people, newPersonArray) {
-
-
-
-  let newArray = [];
-  // let x = 0;
-
-
-  newArray = people.filter(function (el) {
-    if (el.parents.length > 0) {
-
-      for (i = 0; i < el.parents.length; ++i) {
-        let p = newPersonArray[newPersonArray.length - 1];
-        if (el.parents[i] == p.id) {
-          return true;
-        }
-
-      }
-    }
-
-  });
-
-  return newArray;
-
-
-
-}
-
-function searchKids(id) {
-  if (id == personId) {
-
-    return true;
-  }
-
-}
-
+// search by name
 function getPerson(people, firstName, lastName) {
   let personArr = [];
 
@@ -341,15 +269,7 @@ function searchByAge(people) {
   let newArray = [];
   let userInputAge = prompt("How old is the person?");
   do {
-    //let userInputAge = prompt("How old is the person?");
-    // let currentDate = new Date();
-    // let currentYear = currentDate.getFullYear();
-    // let currentMonth = currentDate.getMonth();
-    // let currentDay = currentDate.getDate();
-    // let birthYear = currentYear - userInputAge;
-
-
-
+   
     newArray = people.filter(function (el) {
 
       if (calcDate(el.dob) == userInputAge) {
@@ -566,9 +486,6 @@ function getDescendants(person, allPeople, counter, children = []) {
 
 }
 
-
-
-
 function searchByName(people) {
   var firstName = promptFor("What is the person's first name?", chars);
   var lastName = promptFor("What is the person's last name?", chars);
@@ -585,7 +502,7 @@ function searchByName(people) {
     return person;
   }
   else {
-    alert("More than one person!");
+    alert("More than one result try again!");
     app(people); // restart app
     return;
   }
