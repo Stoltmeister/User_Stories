@@ -228,7 +228,7 @@ function mainMenu(person, people) {
   switch (displayOption) {
     case "info":
       // TODO: get person's info
-      displayPerson(person);
+      displayPerson(person, people);
       mainMenu(person, people);
       break;
     case "family":
@@ -274,8 +274,23 @@ function mainMenu(person, people) {
         spouse = spouse[0].firstName;
       }
 
+      let parents = people.filter(function (el) {
+        if (el.id === person.parents[0] || el.id === person.parents[1]) {
+          return true;
+        }
+      });
+      if (parents.length > 0) {
+        if (parents.length > 1) {
+          parents = parents[0].firstName + ", " + parents[1].firstName;
+        }
+        else {
+          parents = parents[0].firstName;
+        }
+      }
 
-      var personFamily = "Parents: " + person.parents + "\n";
+
+
+      var personFamily = "Parents: " + parents + "\n";
       personFamily += "Children: " + children + "\n";
       personFamily += "Current Spouse: " + spouse + "\n";
       personFamily += "Grandkids: " + grandkids + "\n";
@@ -296,6 +311,15 @@ function mainMenu(person, people) {
     default:
       return mainMenu(person, people); // ask again
   }
+}
+
+function getDescendants(person, allPeople) {
+  if (person.length < 1) {
+    return;
+  }
+  return
+
+
 }
 
 function searchByName(people) {
@@ -327,7 +351,7 @@ function displayPeople(people) {
   }).join("\n"));
 }
 
-function displayPerson(person) {
+function displayPerson(person, people) {
   // print all of the information about a person:
   // height, weight, age, name, occupation, eye color.
   var personInfo = "First Name: " + person.firstName + "\n";
@@ -340,7 +364,18 @@ function displayPerson(person) {
   personInfo += "Eye Color: " + person.eyeColor + "\n";
   personInfo += "Occupation: " + person.occupation + "\n";
   personInfo += "Parents: " + person.parents + "\n";
-  personInfo += "Current Spouse: " + person.currentSpouse + "\n";
+  let spouse = people.filter(function (el) {
+    if (el.id === person.currentSpouse) {
+      return true;
+    }
+  });
+  if (spouse.length > 0) {
+    spouse = spouse[0].firstName;
+  }
+  else {
+    spouse = "";
+  }
+  personInfo += "Current Spouse: " + spouse + "\n";
 
   alert(personInfo);
 }
