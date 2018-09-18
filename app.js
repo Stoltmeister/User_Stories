@@ -50,21 +50,43 @@ function searchByTraits(people) {
         filteredPeople = searchByAge(people);
         console.log(filteredPeople);
         break;
-      case "occcupation":
-        searchInput = promptFor("What is their occupation?", chars);
-        filteredPeople = searchByOccupation(searchInput, people);
+      case "occupation":
+        filteredPeople = searchByOccupation(people);
         console.log(filteredPeople);
         break;
       case "multiple":
-        let height;
-        let weight;
-        let eyeColor;
-        let gender;
-        let age;
-        let occupation;
 
-        alert("Type 'y' for yes or 'n' for no for the following questions");
-        promptFor()
+        alert("Answer 'yes' or 'no' for the following questions");
+        let height = promptFor("Search by height?", yesNo);
+        let weight = promptFor("Search by weight?", yesNo);
+        let eyeColor = promptFor("Search by eye color?", yesNo);
+        let gender = promptFor("Search by gender?", yesNo);
+        let age = promptFor("Search by age?", yesNo);
+        let occcupation = promptFor("Search by occcupation?", yesNo);
+
+        if (height === "yes") {
+          filteredPeople = searchByHeight(people);
+        }
+        if (weight === "yes") {
+          filteredPeople = searchByWeight(filteredPeople);
+        }
+        if (eyeColor === "yes") {
+          filteredPeople = searchByEyeColor(filteredPeople);
+        }
+        if (gender === "yes") {
+          filteredPeople = searchByGender(filteredPeople);
+        }
+        if (age === "yes") {
+          filteredPeople = searchByAge(filteredPeople);
+        }
+        if (occcupation === "yes") {
+          filteredPeople = searchByOccupation(filteredPeople);
+        }
+        else {
+          alert("You did not select any trait to search for! Please try again.");
+          searchByTraits(people);
+          break;
+        }
 
         break;
       default:
@@ -167,6 +189,7 @@ function searchByGender(people) {
     }
 
   } while (newArray.length < 1);
+
   return newArray;
 }
 
