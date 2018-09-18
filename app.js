@@ -6,6 +6,14 @@ Build all of your functions for displaying and gathering information below (GUI)
 
 function app(people) {
   var searchType = promptFor("Do you know the name of the person you are looking for? Enter 'yes' or 'no'", yesNo).toLowerCase();
+ 
+  //let newArr = [];
+  //newArr = 
+  // let descendantsArr = [];
+  // descendantsArr = getRelatives(people);
+  // alert(descendantsArr.length.toString() + "   " + descendantsArr[0].lastName);
+
+
   switch (searchType) {
     case 'yes':
       // TO DO
@@ -128,6 +136,95 @@ function searchByWeight(people) {
   return newArray;
 }
 
+function getRelatives(people) {
+
+  
+    let userInputFirstName = prompt("Type the person's first name to get descendants.");
+    let userInputLastName = prompt("Type the person's last name to get descendants.");
+
+    let newArray = [];
+    // let personId = 0;
+    newArray = getPerson(people, userInputFirstName.toLowerCase(), userInputLastName.toLowerCase());
+
+     
+     // let x = 0;
+     
+  
+      // return newArray;newArray = people.filter(function (el) 
+      // {
+      //     if (el.parents.length > 0)
+      //    {
+
+      //       for ( i = 0; i < el.parents.length ; ++i){
+
+      //         if (el.parents[i] == personId)
+      //         {
+      //          return true;
+      //         } 
+
+      //       }
+      //    }
+      
+      //  });
+      
+      newArray = getImmediateFamily(people, newArray);
+
+      return newArray;
+}
+
+function getImmediateFamily(people, newPersonArray){
+
+
+
+let newArray = [];
+     // let x = 0;
+     
+  
+      newArray = people.filter(function (el) 
+      {
+          if (el.parents.length > 0)
+         {
+
+            for ( i = 0; i < el.parents.length ; ++i){
+              let p = newPersonArray[newPersonArray.length-1] ;
+              if (el.parents[i] == p.id)
+              {
+               return true;
+              } 
+
+            }
+         }
+      
+       });
+
+      return newArray;
+
+
+
+}
+
+function searchKids(id)
+{
+ if (id == personId)
+ {
+
+  return true;
+ }
+
+}
+
+function getPerson(people, firstName, lastName) {
+let personArr = [];
+
+ personArr =  people.filter(function (el) {
+      if (el.firstName.toLowerCase() == firstName && el.lastName.toLowerCase() == lastName) {
+        return true;
+      }      
+    });
+
+  return personArr;
+}
+
 
 function searchByEyeColor(people) {
   let newArray = [];
@@ -213,6 +310,82 @@ function searchByHeight(people) {
   return newArray;
 }
 
+function searchByAge(people) {
+
+   let newArray = [];
+   let userInputAge = prompt("How old is the person?");
+  do {
+    //let userInputAge = prompt("How old is the person?");
+    // let currentDate = new Date();
+    // let currentYear = currentDate.getFullYear();
+    // let currentMonth = currentDate.getMonth();
+    // let currentDay = currentDate.getDate();
+    // let birthYear = currentYear - userInputAge;
+
+
+
+    newArray = people.filter(function (el) {
+  
+      if (calcDate(el.dob) == userInputAge) {
+       
+      
+        return true;
+      }
+    });
+
+    if (newArray.length < 1) {
+      alert("No results. Make sure your input is valid! Please try again.");
+    }
+
+  } while (newArray.length < 1);
+
+  return newArray;
+}
+
+function calcDate(bdate)
+{
+
+  dateToday = new Date();
+  birthdate = new Date(bdate);
+  birthYear = dateToday.getFullYear() - birthdate.getFullYear();
+  if (dateToday.getMonth() < birthdate.getMonth() ||
+    dateToday.getMonth() == birthdate.getMonth() && 
+    dateToday.getDate() < birthdate.getDate())
+  {
+    birthYear = birthYear -1;
+  }
+  return birthYear;
+}
+    
+function parseAge (dob) {
+    let day;
+    let month;
+    let year = dob.slice(dob.length - 4, dob.length);
+    let ageArray = [];
+    let i = 0;
+  
+      if (dob[i+1] === '/') {
+        month = dob[i];
+        i += 2;
+      }
+      else {
+        month = dob[i] + dob[i+1];
+        i += 3;
+      }
+      if (dob[i+1] == '/') {
+        day = dob[i];
+      }
+      else {
+        day = dob[i] + dob[i + 1];
+      }
+
+      ageArray[0] = month;
+      ageArray[1] = day;
+      ageArray[2] = year;
+
+      return ageArray;
+
+}
 // Menu function to call once you find who you are looking for
 function mainMenu(person, people) {
 
