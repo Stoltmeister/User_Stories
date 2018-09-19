@@ -33,27 +33,21 @@ function searchByTraits(people) {
     switch (userSearchChoice) {
       case "height":
         filteredPeople = searchByHeight(people);
-        console.log(filteredPeople);
         break;
       case "weight":
         filteredPeople = searchByWeight(people);
-        console.log(filteredPeople);
         break;
       case "eye color":
         filteredPeople = searchByEyeColor(people);
-        console.log(filteredPeople);
         break;
       case "gender":
         filteredPeople = searchByGender(people);
-        console.log(filteredPeople);
         break;
       case "age":
         filteredPeople = searchByAge(people);
-        console.log(filteredPeople);
         break;
       case "occupation":
         filteredPeople = searchByOccupation(people);
-        console.log(filteredPeople);
         break;
       case "multiple":
 
