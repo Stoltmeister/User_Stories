@@ -7,13 +7,6 @@ Build all of your functions for displaying and gathering information below (GUI)
 function app(people) {
   var searchType = promptFor("Do you know the name of the person you are looking for? Enter 'yes' or 'no'", yesNo).toLowerCase();
 
-  //let newArr = [];
-  //newArr = 
-  // let descendantsArr = [];
-  // descendantsArr = getRelatives(people);
-  // alert(descendantsArr.length.toString() + "   " + descendantsArr[0].lastName);
-
-
   switch (searchType) {
     case 'yes':
       // TO DO
@@ -166,7 +159,7 @@ function searchByWeight(people) {
 
   return newArray;
 }
-// search by name
+
 function getPerson(people, firstName, lastName) {
   let personArr = [];
 
@@ -265,11 +258,9 @@ function searchByHeight(people) {
 }
 
 function searchByAge(people) {
-
   let newArray = [];
-  let userInputAge = prompt("How old is the person?");
-  do {
-
+  do {    
+    let userInputAge = prompt("How old is the person?");
     newArray = people.filter(function (el) {
 
       if (calcDate(el.dob) == userInputAge) {
@@ -315,21 +306,20 @@ function mainMenu(person, people) {
 
   switch (displayOption) {
     case "info":
-      // TODO: get person's info
       displayPerson(person, people);
       mainMenu(person, people);
       break;
+
     case "family":
-      // TODO: get person's family
       let children = getChildren(person, people);
 
       let grandkids = getGrandkids(children, people);
 
       if (children.length > 0) {
-      children = children.map(function (el) {
-        return ' ' + el.firstName + ' ' + el.lastName;
-      });
-    }
+        children = children.map(function (el) {
+          return ' ' + el.firstName + ' ' + el.lastName;
+        });
+      }
       if (grandkids.length > 0) {
         grandkids = grandkids.map(function (el) {
           return ' ' + el.firstName + ' ' + el.lastName;
@@ -354,8 +344,7 @@ function mainMenu(person, people) {
       mainMenu(person, people);
       break;
     case "descendants":
-      // TODO: get person's descendants *Use Recursion Function* 
-      // people who have this current person as a parent
+
       alert(getDescendants(person, people, 1));
       mainMenu(person, people);
       break;
@@ -418,7 +407,7 @@ function getDescendants(person, allPeople, counter, children = []) {
   else {
     // checking even further than grandkids
     grandkids = getGrandkids(children, allPeople);
-    // no more descendants
+
     if (grandkids.length < 1) {
       return '';
     }
@@ -437,7 +426,7 @@ function searchByName(people) {
   var firstName = promptFor("What is the person's first name?", chars);
   var lastName = promptFor("What is the person's last name?", chars);
 
-  // TODO: find the person using the name they entered
+
   var result = people.filter(function (el) {
     if (el.firstName === firstName && el.lastName === lastName) {
       return true;
@@ -449,7 +438,7 @@ function searchByName(people) {
     return person;
   }
   else {
-    alert("More than one result try again!");
+    alert("Cant find that person try again!");
     app(people); // restart app
     return;
   }
