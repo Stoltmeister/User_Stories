@@ -87,7 +87,7 @@ function searchByTraits(people) {
         }
         if (eyeColor === "yes") {
           if (counter > 1) {
-          filteredPeople = searchByEyeColor(filteredPeople);
+            filteredPeople = searchByEyeColor(filteredPeople);
           }
           else {
             filteredPeople = searchByEyeColor(people);
@@ -96,7 +96,7 @@ function searchByTraits(people) {
         }
         if (gender === "yes") {
           if (counter > 1) {
-          filteredPeople = searchByGender(filteredPeople);
+            filteredPeople = searchByGender(filteredPeople);
           }
           else {
             filteredPeople = searchByGender(people);
@@ -105,7 +105,7 @@ function searchByTraits(people) {
         }
         if (age === "yes") {
           if (counter > 1) {
-          filteredPeople = searchByAge(filteredPeople);
+            filteredPeople = searchByAge(filteredPeople);
           }
           else {
             filteredPeople = searchByAge(people);
@@ -114,7 +114,7 @@ function searchByTraits(people) {
         }
         if (occcupation === "yes") {
           if (counter > 1) {
-          filteredPeople = searchByOccupation(filteredPeople);
+            filteredPeople = searchByOccupation(filteredPeople);
           }
           else {
             filteredPeople = searchByOccupation(people);
@@ -269,7 +269,7 @@ function searchByAge(people) {
   let newArray = [];
   let userInputAge = prompt("How old is the person?");
   do {
-   
+
     newArray = people.filter(function (el) {
 
       if (calcDate(el.dob) == userInputAge) {
@@ -321,43 +321,23 @@ function mainMenu(person, people) {
       break;
     case "family":
       // TODO: get person's family
-      let children = people.filter(function (el) {
-        if (el.parents.includes(person.id)) {
-          return true;
-        }
-      });
+      let children = getChildren(person, people);
 
-      let grandkids = "";
+      let grandkids = getGrandkids(children, people);
 
       if (children.length > 0) {
-
-        grandkids = people.filter(function (el) {
-          for (let i = 0; i < children.length; i++) {
-            if (el.parents.includes(children[i].id)) {
-              return true;
-            }
-          }
-
-        });
-
-        children = children.map(function (el) {
-          return ' ' + el.firstName + ' ' + el.lastName;
-        });
-
-
-      }
-
+      children = children.map(function (el) {
+        return ' ' + el.firstName + ' ' + el.lastName;
+      });
+    }
       if (grandkids.length > 0) {
         grandkids = grandkids.map(function (el) {
           return ' ' + el.firstName + ' ' + el.lastName;
         });
       }
 
-      let spouse = people.filter(function (el) {
-        if (el.id === person.currentSpouse) {
-          return true;
-        }
-      });
+      let spouse = getSpouse(person, people);
+
       if (spouse.length > 0) {
         spouse = spouse[0].firstName;
       }
@@ -397,11 +377,7 @@ function getDescendants(person, allPeople, counter, children = []) {
   }
   else if (counter === 1) {
 
-    children = allPeople.filter(function (el) {
-      if (el.parents.includes(person.id)) {
-        return true;
-      }
-    });
+    children = getChildren(person, allPeople);
     // no kids 
     if (children.length < 1) {
       return person.firstName + " has no descendants";
@@ -417,23 +393,13 @@ function getDescendants(person, allPeople, counter, children = []) {
   // has kids possiblly grandkids
   else if (counter === 2) {
 
-    children = allPeople.filter(function (el) {
-      if (el.parents.includes(person.id)) {
-        return true;
-      }
-    });
+    children = getChildren(person, allPeople);
 
     if (children.length < 1) {
       return '';
     }
 
-    grandkids = allPeople.filter(function (el) {
-      for (let i = 0; i < children.length; i++) {
-        if (el.parents.includes(children[i].id)) {
-          return true;
-        }
-      }
-    });
+    grandkids = getGrandkids(children, allPeople);
 
     if (grandkids.length < 1) {
       return '';
@@ -451,13 +417,7 @@ function getDescendants(person, allPeople, counter, children = []) {
 
   else {
     // checking even further than grandkids
-    grandkids = allPeople.filter(function (el) {
-      for (let i = 0; i < children.length; i++) {
-        if (el.parents.includes(children[i].id)) {
-          return true;
-        }
-      }
-    });
+    grandkids = getGrandkids(children, allPeople);
     // no more descendants
     if (grandkids.length < 1) {
       return '';
@@ -547,6 +507,41 @@ function getParents(person, people) {
     }
   }
   return parents;
+}
+
+function getChildren(person, people) {
+  var children = people.filter(function (el) {
+    if (el.parents.includes(person.id)) {
+      return true;
+    }
+  });
+  return children;
+}
+
+function getGrandkids(children, people) {
+  var grandkids = "";
+
+  if (children.length > 0) {
+
+    grandkids = people.filter(function (el) {
+      for (let i = 0; i < children.length; i++) {
+        if (el.parents.includes(children[i].id)) {
+          return true;
+        }
+      }
+
+    });
+  }
+  return grandkids;
+}
+
+function getSpouse(person, people) {
+  var spouse = people.filter(function (el) {
+    if (el.id === person.currentSpouse) {
+      return true;
+    }
+  });
+  return spouse;
 }
 
 // function that prompts and validates user input
