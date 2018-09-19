@@ -362,38 +362,7 @@ function mainMenu(person, people) {
         spouse = spouse[0].firstName;
       }
 
-      var parents = people.filter(function (el) {
-        if (el.id === person.parents[0] || el.id === person.parents[1]) {
-          return true;
-        }
-      });
-      if (parents.length > 0) {
-        if (parents.length > 1) {
-          parents = parents[0].firstName + ", " + parents[1].firstName;
-        }
-        else {
-          parents = parents[0].firstName;
-        }
-      }
-      if (spouse.length > 0) {
-        spouse = spouse[0].firstName;
-      }
-
-      var parents = people.filter(function (el) {
-        if (el.id === person.parents[0] || el.id === person.parents[1]) {
-          return true;
-        }
-      });
-      if (parents.length > 0) {
-        if (parents.length > 1) {
-          parents = parents[0].firstName + ", " + parents[1].firstName;
-        }
-        else {
-          parents = parents[0].firstName;
-        }
-      }
-
-
+      var parents = getParents(person, people);
 
       var personFamily = "Parents: " + parents + "\n";
       personFamily += "Children: " + children + "\n";
@@ -545,7 +514,7 @@ function displayPerson(person, people) {
   personInfo += "Weight: " + person.weight + "\n";
   personInfo += "Eye Color: " + person.eyeColor + "\n";
   personInfo += "Occupation: " + person.occupation + "\n";
-  personInfo += "Parents: " + person.parents + "\n";
+  var parents = getParents(person, people);
   let spouse = people.filter(function (el) {
     if (el.id === person.currentSpouse) {
       return true;
@@ -557,9 +526,27 @@ function displayPerson(person, people) {
   else {
     spouse = "";
   }
+  personInfo += "Parents: " + parents + "\n";
   personInfo += "Current Spouse: " + spouse + "\n";
 
   alert(personInfo);
+}
+
+function getParents(person, people) {
+  var parents = people.filter(function (el) {
+    if (el.id === person.parents[0] || el.id === person.parents[1]) {
+      return true;
+    }
+  });
+  if (parents.length > 0) {
+    if (parents.length > 1) {
+      parents = parents[0].firstName + ", " + parents[1].firstName;
+    }
+    else {
+      parents = parents[0].firstName;
+    }
+  }
+  return parents;
 }
 
 // function that prompts and validates user input
